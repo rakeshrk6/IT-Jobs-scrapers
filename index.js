@@ -4,15 +4,18 @@ import { connect } from "./db connection/connection.js"
 import { fetchGoogleJobs } from "./scrappers/googleScrapper/fetchData.js"
 import { fetchInternshalaData } from "./scrappers/internshalaScrapper/fetchData.js"
 import cron from "node-cron"
+import { fetchAmazonJobs } from "./scrappers/amazonScrapper/fetchData.js"
 
 dotenv.config({ path: ".env" })
 const PORT = process.env.PORT
 
 const app = express()
 
-cron.schedule("* * * * *", () => {
-  console.log("started")
-  //   fetchInternshalaData()
+cron.schedule("0 5 * * *", () => {
+  console.log("Task started at 5 AM")
+  fetchInternshalaData()
+  fetchGoogleJobs()
+  fetchAmazonJobs()
 })
 
 app.get("/", async (req, res) => {

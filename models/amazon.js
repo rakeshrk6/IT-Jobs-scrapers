@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose"
+import { Schema, model } from "mongoose"
 
 const AmazonSchema = new Schema({
   title: { type: String },

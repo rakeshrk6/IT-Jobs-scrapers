@@ -1,5 +1,5 @@
 import puppeteer from "puppeteer"
-import Amazon from "../../models/amazon"
+import Amazon from "../../models/amazon.js"
 
 export async function fetchAmazonJobs() {
   try {
