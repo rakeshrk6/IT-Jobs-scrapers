@@ -15,6 +15,10 @@ cron.schedule("* * * * *", () => {
   //   fetchInternshalaData()
 })
 
+app.get("/", async (req, res) => {
+  res.send("home route")
+})
+
 connect()
   .then(() => {
     try {
