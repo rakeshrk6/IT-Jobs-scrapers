@@ -1,0 +1,4 @@
+services:
+  web:
+    commands:
+      - npx playwright install
