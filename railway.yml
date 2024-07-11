@@ -1,4 +1,20 @@
 services:
   web:
-    commands:
-      - npx playwright install
+    env:
+      NODE_ENV: production
+    buildScript: npm install && npm run build
+    startScript: npm start
+    envFile: .env
+    # Ensure Playwright and browsers are installed during build
+    plugins:
+      - image: railway/npm
+
+jobs:
+  scrape:
+    env:
+      NODE_ENV: production
+    buildScript: npm install # Ensure Playwright is installed
+    runCommand: npm run scrape # Your custom scrape command
+    envFile: .env
+    plugins:
+      - image: railway/npm

@@ -5,7 +5,7 @@ import Internshala from "../../models/internshala.js"
 export async function fetchInternshalaData() {
   try {
     const browser = await chromium.launch({
-      headless: false, // Change to true to run in headless mode
+      headless: true, // Change to true to run in headless mode
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
     })
     const page = await browser.newPage()
