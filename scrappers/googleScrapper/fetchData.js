@@ -3,7 +3,9 @@ import Google from "../../models/google.js"
 
 export async function fetchGoogleJobs() {
   try {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    })
     const page = await browser.newPage()
     await page.goto(
       "https://www.google.com/about/careers/applications/jobs/results?has_remote=true&location=India"

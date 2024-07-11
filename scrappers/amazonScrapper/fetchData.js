@@ -3,7 +3,9 @@ import Amazon from "../../models/amazon.js"
 
 export async function fetchAmazonJobs() {
   try {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    })
     const page = await browser.newPage()
     page.setDefaultNavigationTimeout(80000)
     await page.goto(
