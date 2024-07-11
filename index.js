@@ -11,7 +11,7 @@ const PORT = process.env.PORT
 
 const app = express()
 
-cron.schedule("0 5 * * *", () => {
+cron.schedule("* * * * *", () => {
   console.log("Task started at 5 AM")
   fetchInternshalaData()
   fetchGoogleJobs()
