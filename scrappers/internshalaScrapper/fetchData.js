@@ -4,7 +4,10 @@ import Internshala from "../../models/internshala.js"
 export async function fetchInternshalaData() {
   try {
     const browser = await puppeteer.launch({
+      headless: false,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      timeout: 60000,
+      dumpio: true, // Log browser process stdout and stderr
     })
     const page = await browser.newPage()
     await page.goto(

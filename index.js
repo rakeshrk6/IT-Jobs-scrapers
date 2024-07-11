@@ -14,8 +14,8 @@ const app = express()
 cron.schedule("* * * * *", () => {
   console.log("Task started at 5 AM")
   fetchInternshalaData()
-  fetchGoogleJobs()
-  fetchAmazonJobs()
+  // fetchGoogleJobs()
+  // fetchAmazonJobs()
 })
 
 app.get("/", async (req, res) => {
