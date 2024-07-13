@@ -1,38 +1,35 @@
-import axios from "axios"
-import cheerio from "cheerio"
+import puppeteer from "puppeteer"
 import Internshala from "../../models/internshala.js"
 
 export async function fetchInternshalaData() {
   try {
-    // Fetch HTML content from Internshala
-    const response = await axios.get(
+    const browser = await puppeteer.launch()
+    const page = await browser.newPage()
+    await page.goto(
       "https://internshala.com/internships/front-end-development,software-development,web-development-internship/"
     )
 
-    // Load HTML content into Cheerio
-    const $ = cheerio.load(response.data)
+    const jobs = await page.$$eval(
+      "#internship_list_container_1 .individual_internship",
+      (ele) =>
+        ele.map((e) => ({
+          title: e.querySelector(".job-internship-name")?.innerText || "",
+          companyName: e.querySelector(".company-name")?.innerText || "",
+          location: e.querySelector(".locations")?.innerText || "",
+          stipend: e.querySelector(".stipend")?.innerText || "",
+          jobType: e.querySelector(".status-li")?.innerText || "",
+          url: `https://internshala.com${e.getAttribute("data-href")}` || "",
+          img: e.querySelector(".internship_logo img")?.src ?? "",
+        }))
+    )
+    // console.log(jobs)
+    await Internshala.deleteMany({ jobs })
 
-    // Extract job listings using Cheerio selectors
-    const jobs = $("#internship_list_container_1 .individual_internship")
-      .map((index, element) => {
-        const jobElement = $(element)
-        return {
-          title: jobElement.find(".job-internship-name").text().trim(),
-          companyName: jobElement.find(".company-name").text().trim(),
-          location: jobElement.find(".locations").text().trim(),
-          stipend: jobElement.find(".stipend").text().trim(),
-          jobType: jobElement.find(".status-li").text().trim(),
-          url: `https://internshala.com${jobElement.attr("data-href")}`,
-          img: jobElement.find(".internship_logo img").attr("src") || "",
-        }
-      })
-      .get()
-
-    // Clear existing jobs and insert new ones
-    await Internshala.deleteMany({})
-    await Internshala.insertMany(jobs)
+    // Save new data to MongoDB
+    await Internshala.create(jobs)
 
     console.log("Internshala Data fetched and saved successfully.")
+    await browser.close()
   } catch (error) {
     console.error("Error fetching or saving data:", error)
   }
