@@ -3,7 +3,9 @@ import Internshala from "../../models/internshala.js"
 
 export async function fetchInternshalaData() {
   try {
-    const browser = await puppeteer.launch()
+    const browser = await puppeteer.launch({
+      product: "firefox",
+    })
     const page = await browser.newPage()
     await page.goto(
       "https://internshala.com/internships/front-end-development,software-development,web-development-internship/"
