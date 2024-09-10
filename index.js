@@ -18,8 +18,8 @@ const app = express()
 //   fetchAmazonJobs()
 // })
 
-// fetchAmazonJobs()
-fetchInternshalaData()
+fetchAmazonJobs()
+// fetchInternshalaData()
 // fetchGoogleJobs()
 
 app.get("/", async (req, res) => {

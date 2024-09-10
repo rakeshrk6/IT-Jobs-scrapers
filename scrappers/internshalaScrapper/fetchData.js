@@ -3,9 +3,7 @@ import Internshala from "../../models/internshala.js"
 
 export async function fetchInternshalaData() {
   try {
-    const browser = await puppeteer.launch({
-      product: "firefox",
-    })
+    const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(
       "https://internshala.com/internships/front-end-development,software-development,web-development-internship/"
@@ -25,7 +23,7 @@ export async function fetchInternshalaData() {
         }))
     )
     // console.log(jobs)
-    await Internshala.deleteMany({ jobs })
+    await Internshala.deleteMany({})
 
     // Save new data to MongoDB
     await Internshala.create(jobs)
