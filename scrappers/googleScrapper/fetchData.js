@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer"
 import Google from "../../models/google.js"
 
-export async function fetchGoogleJobs(res) {
+export async function fetchGoogleJobs() {
   const browser = await puppeteer.launch({
     args: [
       "--disable-setuid-sandbox",
@@ -55,7 +55,7 @@ export async function fetchGoogleJobs(res) {
     Example: await Google.create(allJobs)
 
     console.log("Data fetched and saved successfully.")
-    res.send(allJobs)
+    return allJobs
   } catch (error) {
     console.error("Error fetching or saving data:", error)
   } finally {

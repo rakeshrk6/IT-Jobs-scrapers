@@ -4,7 +4,7 @@ import Amazon from "../../models/amazon.js"
 // Helper function to add a delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export async function fetchAmazonJobs(res) {
+export async function fetchAmazonJobs() {
   const browser = await puppeteer.launch({
     args: [
       "--disable-setuid-sandbox",
@@ -87,7 +87,7 @@ export async function fetchAmazonJobs(res) {
     await Amazon.create(allJobs)
 
     console.log("Data fetched and saved successfully.")
-    res.send(allJobs)
+    return allJobs
   } catch (error) {
     console.error("Error fetching or saving data:", error)
   } finally {
