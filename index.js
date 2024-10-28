@@ -19,11 +19,14 @@ const app = express()
 // })
 
 // fetchAmazonJobs()
-fetchInternshalaData()
+
 // fetchGoogleJobs()
 
 app.get("/", async (req, res) => {
   res.send("home route")
+})
+app.get("/internshala", async (req, res) => {
+  fetchInternshalaData(res)
 })
 
 connect()

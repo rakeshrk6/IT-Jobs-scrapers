@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer"
 import Internshala from "../../models/internshala.js"
 
-export async function fetchInternshalaData() {
+export async function fetchInternshalaData(res) {
   const browser = await puppeteer.launch({
     args: [
       "--disable-setuid-sandbox",
@@ -40,6 +40,7 @@ export async function fetchInternshalaData() {
     await Internshala.create(jobs)
 
     console.log("Internshala Data fetched and saved successfully.")
+    res.send(jobs)
   } catch (error) {
     console.error("Error fetching or saving data:", error)
   } finally {
