@@ -6,7 +6,11 @@ const GoogleSchema = new Schema({
   location: { type: String },
   jobType: { type: String, default: "Full Time" },
   url: { type: String },
-  date: { type: String, default: () => new Date().toLocaleString("en-IN") },
+  date: {
+    type: String,
+    default: () =>
+      new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+  },
 })
 
 const Google = model("Google", GoogleSchema)

@@ -6,7 +6,11 @@ const AmazonSchema = new Schema({
   location: { type: String },
   jobType: { type: String },
   url: { type: String },
-  date: { type: String, default: () => new Date().toLocaleString("en-IN") },
+  date: {
+    type: String,
+    default: () =>
+      new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
+  },
 })
 
 const Amazon = model("Amazon", AmazonSchema)
