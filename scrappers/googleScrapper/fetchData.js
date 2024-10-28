@@ -1,9 +1,20 @@
 import puppeteer from "puppeteer"
 import Google from "../../models/google.js"
 
-export async function fetchGoogleJobs() {
+export async function fetchGoogleJobs(res) {
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  })
   try {
-    const browser = await puppeteer.launch()
     const page = await browser.newPage()
 
     const baseUrl =
@@ -44,8 +55,10 @@ export async function fetchGoogleJobs() {
     Example: await Google.create(allJobs)
 
     console.log("Data fetched and saved successfully.")
-    await browser.close()
+    res.send(allJobs)
   } catch (error) {
     console.error("Error fetching or saving data:", error)
+  } finally {
+    await browser.close()
   }
 }

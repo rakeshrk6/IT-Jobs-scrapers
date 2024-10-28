@@ -8,7 +8,7 @@ const InternshalaSchema = new Schema({
   jobType: { type: String },
   url: { type: String },
   img: { type: String },
-  date: { type: String, default: new Date().toLocaleString("en-IN") },
+  date: { type: String, default: () => new Date().toLocaleString("en-IN") },
 })
 
 const Internshala = model("Internshala", InternshalaSchema)

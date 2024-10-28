@@ -28,6 +28,12 @@ app.get("/", async (req, res) => {
 app.get("/internshala", async (req, res) => {
   fetchInternshalaData(res)
 })
+app.get("/amazon", async (req, res) => {
+  fetchAmazonJobs(res)
+})
+app.get("/google", async (req, res) => {
+  fetchGoogleJobs(res)
+})
 
 connect()
   .then(() => {

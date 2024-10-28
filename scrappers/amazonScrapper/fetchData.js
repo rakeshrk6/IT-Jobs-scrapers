@@ -4,9 +4,20 @@ import Amazon from "../../models/amazon.js"
 // Helper function to add a delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export async function fetchAmazonJobs() {
+export async function fetchAmazonJobs(res) {
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  })
   try {
-    const browser = await puppeteer.launch()
     const page = await browser.newPage()
     page.setDefaultNavigationTimeout(120000) // Set a longer timeout (e.g., 120 seconds)
 
@@ -76,8 +87,10 @@ export async function fetchAmazonJobs() {
     await Amazon.create(allJobs)
 
     console.log("Data fetched and saved successfully.")
-    await browser.close()
+    res.send(allJobs)
   } catch (error) {
     console.error("Error fetching or saving data:", error)
+  } finally {
+    await browser.close()
   }
 }
