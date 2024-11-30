@@ -51,8 +51,8 @@ export async function fetchGoogleJobs() {
       ])
     }
 
-    Example: await Google.deleteMany({})
-    Example: await Google.create(allJobs)
+    await Google.deleteMany({})
+    await Google.create(allJobs)
 
     console.log("Data fetched and saved successfully.")
     return allJobs
