@@ -46,7 +46,7 @@ export async function fetchAmazonJobs() {
           }))
       )
 
-      console.log(jobs)
+      // console.log(jobs)
       allJobs = [...allJobs, ...jobs]
 
       const nextPageButtonDisabled = await page.$eval(
@@ -86,7 +86,7 @@ export async function fetchAmazonJobs() {
     await Amazon.deleteMany({})
     await Amazon.create(allJobs)
 
-    console.log("Data fetched and saved successfully.")
+    console.log("Amazon fetched and saved successfully.")
     return allJobs
   } catch (error) {
     console.error("Error fetching or saving data:", error)

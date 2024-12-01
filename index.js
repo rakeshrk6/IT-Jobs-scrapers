@@ -11,12 +11,19 @@ const PORT = process.env.PORT
 
 const app = express()
 
-cron.schedule("0 0 * * *", () => {
-  console.log("Task started")
-  fetchInternshalaData()
-  fetchGoogleJobs()
-  fetchAmazonJobs()
-})
+// cron.schedule("0 0 * * *", () => {
+//   console.log("Task started")
+// fetchInternshalaData()
+// fetchGoogleJobs()
+// fetchAmazonJobs()
+// })
+
+async function runJobs() {
+  await fetchInternshalaData()
+  await fetchGoogleJobs()
+  await fetchAmazonJobs()
+}
+runJobs()
 
 app.get("/", async (req, res) => {
   res.send("home route")

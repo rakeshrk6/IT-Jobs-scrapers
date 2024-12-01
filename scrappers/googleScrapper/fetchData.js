@@ -54,7 +54,7 @@ export async function fetchGoogleJobs() {
     await Google.deleteMany({})
     await Google.create(allJobs)
 
-    console.log("Data fetched and saved successfully.")
+    console.log("Google data fetched and saved successfully.")
     return allJobs
   } catch (error) {
     console.error("Error fetching or saving data:", error)
